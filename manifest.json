@@ -1,0 +1,9 @@
+{
+  "id": "folder-graph",
+  "name": "Folder Graph",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Displays an interactive graph of every folder in the vault, without files.",
+  "author": "Old Sage Monkey",
+  "isDesktopOnly": false
+}

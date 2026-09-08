@@ -1,0 +1,147 @@
+/*
+Change the variables below for broad theming. For targeted styling, use:
+    .folder-graph-node                     every node
+    .folder-graph-node.is-root             the vault root
+    .folder-graph-node[data-depth="1"]     top-level folders
+    .folder-graph-node[data-path="..."]    one specific folder
+    .folder-graph-node-circle              node shape
+    .folder-graph-node-label               node text
+    .folder-graph-edge                     connecting lines
+*/
+
+.folder-graph-view {
+  --folder-graph-node-fill: var(--interactive-accent);
+  --folder-graph-node-stroke: var(--background-primary);
+  --folder-graph-node-stroke-width: 3px;
+  --folder-graph-node-radius: 9px;
+  --folder-graph-root-fill: var(--color-purple);
+  --folder-graph-root-radius: 13px;
+  --folder-graph-selected-fill: var(--color-orange);
+  --folder-graph-label-color: var(--text-normal);
+  --folder-graph-label-size: 13px;
+  --folder-graph-label-weight: 500;
+  --folder-graph-edge-color: var(--background-modifier-border-focus);
+  --folder-graph-edge-width: 1.5px;
+  --folder-graph-stage-background: var(--background-primary);
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.folder-graph-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 6px 10px 6px 16px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+}
+
+.folder-graph-title,
+.folder-graph-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.folder-graph-count {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
+.folder-graph-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--folder-graph-stage-background);
+  background-image: radial-gradient(circle, var(--background-modifier-border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.folder-graph-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.folder-graph-svg.is-panning {
+  cursor: grabbing;
+}
+
+.folder-graph-edge {
+  stroke: var(--folder-graph-edge-color);
+  stroke-width: var(--folder-graph-edge-width);
+  vector-effect: non-scaling-stroke;
+}
+
+.folder-graph-node {
+  cursor: pointer;
+  outline: none;
+}
+
+.folder-graph-node-hit-area {
+  fill: transparent;
+}
+
+.folder-graph-node-circle {
+  r: var(--folder-graph-node-radius);
+  fill: var(--folder-graph-node-fill);
+  stroke: var(--folder-graph-node-stroke);
+  stroke-width: var(--folder-graph-node-stroke-width);
+  vector-effect: non-scaling-stroke;
+  transition: filter 120ms ease, r 120ms ease, fill 120ms ease;
+}
+
+.folder-graph-node-label {
+  fill: var(--folder-graph-label-color);
+  font-family: var(--font-interface);
+  font-size: var(--folder-graph-label-size);
+  font-weight: var(--folder-graph-label-weight);
+  paint-order: stroke;
+  stroke: var(--folder-graph-stage-background);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.folder-graph-node.is-root .folder-graph-node-circle {
+  r: var(--folder-graph-root-radius);
+  fill: var(--folder-graph-root-fill);
+}
+
+.folder-graph-node:hover .folder-graph-node-circle,
+.folder-graph-node:focus-visible .folder-graph-node-circle {
+  r: calc(var(--folder-graph-node-radius) + 3px);
+  filter: brightness(1.18) drop-shadow(0 0 5px var(--interactive-accent));
+}
+
+.folder-graph-node.is-root:hover .folder-graph-node-circle,
+.folder-graph-node.is-root:focus-visible .folder-graph-node-circle {
+  r: calc(var(--folder-graph-root-radius) + 3px);
+}
+
+.folder-graph-node.is-selected .folder-graph-node-circle {
+  fill: var(--folder-graph-selected-fill);
+}
+
+.folder-graph-node.is-dragging {
+  cursor: grabbing;
+}
+
+@media (max-width: 600px) {
+  .folder-graph-view {
+    --folder-graph-label-size: 11px;
+  }
+
+  .folder-graph-toolbar {
+    padding-left: 10px;
+  }
+}
